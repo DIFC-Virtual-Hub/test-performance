@@ -1,16 +1,20 @@
-import { sleep, check } from 'k6';
 import { Options } from 'k6/options';
-import http from 'k6/http';
+import Auth0Actions from '../src/actions/Auth0Actions';
+import UserActions from '../src/actions/UserActions';
+import ResponseAssertions from '../src/lib/responses/ResponseAssertions';
 
 export const options: Options = {
-	vus: 50,
+	vus: 1,
 	duration: '10s',
 };
 
-export default () => {
-	const res = http.get('https://test-api.k6.io');
-	check(res, {
-		'status is 200': () => res.status === 200,
-	});
-	sleep(1);
+export function setup() {
+	const authToken = Auth0Actions.getAuthTokenUsingAuth0Api();
+	return { authToken };
+}
+
+export default (data) => {
+	const res = UserActions.getSelf(data.authToken);
+	ResponseAssertions.asertResponseCode(res, 200);
+	ResponseAssertions.assertJsonPathExists(res, 'id');
 };
