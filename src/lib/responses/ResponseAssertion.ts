@@ -1,7 +1,7 @@
 import { check } from 'k6';
 import { RefinedResponse, ResponseType } from 'k6/http';
 
-export default class ResponseAssertions {
+export default class ResponseAssertion {
 	public static asertResponseCode(
 		response: RefinedResponse<ResponseType | undefined>,
 		expectedCode: number | number[],

@@ -1,16 +1,24 @@
 import { group } from 'k6';
 import UserService from '../../services/UserService';
-import ResponseAssertions from '../../lib/responses/ResponseAssertions';
+import ResponseAssertion from '../../lib/responses/ResponseAssertion';
 import CompanyService from '../../services/CompanyService';
+import ResponseExtractor from '../../lib/responses/ResponseExtractor';
 
 export function openDashboard(data: any) {
 	group('open dashboard', () => {
 		let res = UserService.getSelf(data.authToken);
-		ResponseAssertions.asertResponseCode(res, 200);
-		ResponseAssertions.assertJsonPathExists(res, 'id');
+		ResponseAssertion.asertResponseCode(res, 200);
+		ResponseAssertion.assertJsonPathExists(res, 'id');
+		const companyId = ResponseExtractor.extractJson(res, 'companies.0.id');
 
 		res = CompanyService.getRandomCompaniesDashboard(data.authToken);
-		ResponseAssertions.asertResponseCode(res, 200);
-		ResponseAssertions.assertJsonArrayLength(res, 6);
+		ResponseAssertion.asertResponseCode(res, 200);
+		ResponseAssertion.assertJsonArrayLength(res, 6);
+
+		if (companyId) {
+			res = CompanyService.getCompany(data.authToken, companyId.toString());
+			ResponseAssertion.asertResponseCode(res, 200);
+			ResponseAssertion.assertJsonValue(res, 'id', companyId);
+		}
 	});
 }

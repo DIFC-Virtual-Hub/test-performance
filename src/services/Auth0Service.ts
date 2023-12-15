@@ -1,5 +1,5 @@
 import http from 'k6/http';
-import { EnvConfig } from '../../common/envConfig';
+import { EnvConfig } from '../../common/EnvConfig';
 
 export type Auth0TokenMessage = {
 	access_token: string;

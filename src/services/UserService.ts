@@ -1,4 +1,4 @@
-import { EnvConfig } from '../../common/envConfig';
+import { EnvConfig } from '../../common/EnvConfig';
 import HttpRequest from '../lib/http/HttpRequest';
 
 export default class UserService {

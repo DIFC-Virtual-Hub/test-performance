@@ -68,6 +68,7 @@ export default class HttpRequest {
 					throw new Error(`Unsupported method ${method}`);
 			}
 		});
+		console.debug(`${this.name} response: ${JSON.stringify(rs)}`);
 		return rs;
 	}
 }

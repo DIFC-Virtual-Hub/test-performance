@@ -1,4 +1,4 @@
-import { EnvConfig } from '../../../common/envConfig';
+import { EnvConfig } from '../../../common/EnvConfig';
 import HttpRequest from './HttpRequest';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
