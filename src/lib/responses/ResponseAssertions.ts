@@ -27,4 +27,13 @@ export default class ResponseAssertions {
 			[`${selector} exists`]: (res) => res.json(selector) !== undefined,
 		});
 	}
+
+	public static assertJsonArrayLength(response: RefinedResponse<ResponseType | undefined>, expectedLength: number) {
+		return check(response, {
+			[`Response has expected length ${expectedLength}`]: (res) => {
+				const jsonArray = res.json();
+				return Array.isArray(jsonArray) && jsonArray.length === expectedLength;
+			},
+		});
+	}
 }

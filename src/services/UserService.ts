@@ -1,7 +1,7 @@
 import { EnvConfig } from '../../common/envConfig';
 import HttpRequest from '../lib/http/HttpRequest';
 
-export default class UserActions {
+export default class UserService {
 	public static readonly userEndpoints = {
 		selfEndpoint: `/api/v1/users/self`,
 	};
@@ -9,8 +9,8 @@ export default class UserActions {
 	public static getSelf(authToken: string) {
 		const getSelfRequest = HttpRequest.builder
 			.setBaseUrl(EnvConfig.VH_API_URL)
-			.setEndpoint(UserActions.userEndpoints.selfEndpoint)
-			.setName(EnvConfig.VH_API_URL + UserActions.userEndpoints.selfEndpoint)
+			.setEndpoint(UserService.userEndpoints.selfEndpoint)
+			.setName(EnvConfig.VH_API_URL + UserService.userEndpoints.selfEndpoint)
 			.withAuthorizationToken(authToken)
 			.build();
 		return getSelfRequest.get();

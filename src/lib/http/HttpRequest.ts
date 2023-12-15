@@ -10,7 +10,6 @@ enum HttpMethod {
 	POST = 'POST',
 	PUT = 'PUT',
 	PATCH = 'PATCH',
-	DELETE = 'DELETE',
 }
 
 export default class HttpRequest {
@@ -47,10 +46,6 @@ export default class HttpRequest {
 
 	public patch() {
 		return this.makeRequest(HttpMethod.PATCH);
-	}
-
-	public delete() {
-		return this.makeRequest(HttpMethod.DELETE);
 	}
 
 	private makeRequest(method: HttpMethod) {

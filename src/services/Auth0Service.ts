@@ -8,7 +8,7 @@ export type Auth0TokenMessage = {
 	scope: string;
 };
 
-export default class Auth0Actions {
+export default class Auth0Service {
 	static getAuthTokenUsingAuth0Api() {
 		const body = {
 			grant_type: 'password',
@@ -22,7 +22,7 @@ export default class Auth0Actions {
 
 		const response = http.post(`${EnvConfig.AUTH0_DOMAIN}/oauth/token`, body);
 		const res = response.json();
-		if (!Auth0Actions.isAuth0AccessTokenResponse(res)) throw new Error('Failed to get auth token');
+		if (!Auth0Service.isAuth0AccessTokenResponse(res)) throw new Error('Failed to get auth token');
 		const token = res.access_token;
 		return token;
 	}

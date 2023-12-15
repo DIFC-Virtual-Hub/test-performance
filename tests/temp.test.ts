@@ -1,6 +1,6 @@
 import { Options } from 'k6/options';
-import Auth0Actions from '../src/actions/Auth0Actions';
-import UserActions from '../src/actions/UserActions';
+import Auth0Actions from '../src/services/Auth0Service';
+import UserActions from '../src/services/UserService';
 import ResponseAssertions from '../src/lib/responses/ResponseAssertions';
 
 export const options: Options = {
@@ -13,7 +13,7 @@ export function setup() {
 	return { authToken };
 }
 
-export default (data) => {
+export default (data: any) => {
 	const res = UserActions.getSelf(data.authToken);
 	ResponseAssertions.asertResponseCode(res, 200);
 	ResponseAssertions.assertJsonPathExists(res, 'id');
