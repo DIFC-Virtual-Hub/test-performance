@@ -9,19 +9,21 @@ export function setup() {
 	return { authToken };
 }
 
+const scenarioName = 'openDashboard';
+
 export const options: Options = {
 	tags: {
 		testid: 'dashboard-get-' + Date.now(),
 		env: EnvConfig.VH_ENV,
 	},
 	scenarios: {
-		openDashboard: {
+		[scenarioName]: {
 			executor: 'ramping-arrival-rate',
-			stages: [{ target: 1, duration: '10s' }],
+			stages: [{ target: 100, duration: '10s' }],
 			timeUnit: '1s',
 			preAllocatedVUs: 1,
 			maxVUs: 1,
-			exec: 'openDashboard',
+			exec: scenarioName,
 		},
 	},
 };

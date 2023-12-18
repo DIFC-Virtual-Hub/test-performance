@@ -5,13 +5,14 @@ export default class CompanyService {
 	public static readonly companyEndpoints = {
 		getCompany: (companyId: string) => `/api/v1/companies/${companyId}`,
 		randomCompaniesDashboard: `/api/v1/companies/random`,
+		companyEvents: '/api/v1/companies/events',
 	};
 
-	public static getRandomCompaniesDashboard(authToken: string) {
+	public static getRandomCompaniesDashboard(authToken: string, companiesCount = 6) {
 		const getRandomCompaniesDashboardRequest = HttpRequest.builder
 			.setBaseUrl(EnvConfig.VH_API_URL)
 			.setEndpoint(CompanyService.companyEndpoints.randomCompaniesDashboard)
-			.setParams({ count: 6 })
+			.setParams({ count: companiesCount })
 			.setName(EnvConfig.VH_API_URL + CompanyService.companyEndpoints.randomCompaniesDashboard)
 			.withAuthorizationToken(authToken)
 			.build();
@@ -26,5 +27,16 @@ export default class CompanyService {
 			.withAuthorizationToken(authToken)
 			.build();
 		return getCompanyRequest.get();
+	}
+
+	public static getCompanyEventsDashboard(authToken: string, eventsCount = 4) {
+		const getCompanyEventsDashboardRequest = HttpRequest.builder
+			.setBaseUrl(EnvConfig.VH_API_URL)
+			.setEndpoint(CompanyService.companyEndpoints.companyEvents)
+			.setParams({ count: eventsCount })
+			.setName(EnvConfig.VH_API_URL + CompanyService.companyEndpoints.companyEvents)
+			.withAuthorizationToken(authToken)
+			.build();
+		return getCompanyEventsDashboardRequest.get();
 	}
 }
