@@ -22,7 +22,8 @@ export default class Auth0Service {
 
 		const response = http.post(`${EnvConfig.AUTH0_DOMAIN}/oauth/token`, body);
 		const res = response.json();
-		if (!Auth0Service.isAuth0AccessTokenResponse(res)) throw new Error('Failed to get auth token');
+		if (!Auth0Service.isAuth0AccessTokenResponse(res))
+			throw new Error('Failed to get auth token: ' + JSON.stringify(res));
 		const token = res.access_token;
 		return token;
 	}
