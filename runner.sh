@@ -11,4 +11,4 @@ npm run build && \
 ./k6 run \
     -e TEST_ITERATIONS_SEC=1 \
     -e TEST_DURATION=1m \
-    ./dist/$SCRIPT_NAME.test.js
+    ./dist/$SCRIPT_NAME.test.js`
